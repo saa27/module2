@@ -1,0 +1,32 @@
+# Process Utilization
+
+## Windows: Resource Monitoring
+
+Managing processes comes in handy the most when processes become a little unruly. Our systems usually have some pretty good ways of monitoring processes and telling us which processes might be having issues.
+
+In Windows, the most common ways to quickly take a peek at how the system resources are doing
+
+are -
+
+### 1. Resource Monitoring tool
+
+- Once it opens, you'll see five tabs of information. One is an overview of all the resources on the system.
+- Each other tab is dedicated to displaying information about a particular resource on the system.
+- You'll also notice that Resource Monitor displays process information too along with data about the resources that the process is consuming.
+
+### 2. process explorer
+
+- You can get this performance information in a slightly less detailed presentation
+- Just like the process you are interested in, right click and choose properties.
+- From there, pick the performance graph tab. You can see quick visualizations of the current CPU memory indicated by private bytes and disk activity indicated by I/O.
+
+### 3. Command Line
+
+- we will focus on a PowerShell centric one, our friend Get-Process. We know that if we run Get-Process without any options or flags, we get process information for each running process on the system.
+- column headings at the start of the output, you'll see things like NPM(K) values in this column represent the amount of non paged memory the process is using.
+
+> Let's say you wanted to just display the top three processes using the MOS CPU, you could write this command.
+
+Get-Process| Sort CPU -descending | Select -first 3 -property ID, ProcessName and CPU.
+
+And just like that, we get the top three CPU hogs on the system. First, we call the Get-Process Commandlet to obtain all that process information from the operating system. Then, we use a pipe to connect the output of that command to the sort command. We sort the output of Get-Process by the CPU column descending to put the biggest numbers first. Then, we pipe that information to the select command. Using select, we pick the first three rows from the output of sort and pick only the property ID, name, and CPU amount to display.
