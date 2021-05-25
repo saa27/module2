@@ -1,0 +1,56 @@
+# Life of a process
+
+Background processes are processes that run in the background. They are also known as Daemon processes.
+
+## Windows: Process Creation and Termination
+
+- When Windows boots up or starts, the first non-kernel user mode that starts is the Session Manager Subsystem or **smss.exe.**
+- The smss.exe process is in charge of setting some stuff up for the OS to work.
+- It then kicks off the log-in process called **winlogon.exe** appropriately enough, along with the Client/Server Runtime Subsystem called **csrss.exe,** which handles running the Windows GUI and command line council.
+
+### Creation-
+
+- In Windows, each new process that's created needs a parent to tell the operating system that a new process needs to be made.
+- The child process inherit some things from its parent like variables and settings, which we can collectively refer to as an **environment**. This gives the child process a pretty good start in life, but after the initial creation step, the child is pretty much on its own.
+- In Windows processes can operate independently of their parents.
+
+### Termination -
+
+- You can use a command prompt command by calling on the task kill utility.
+- Task kill can find and halt a process in a few ways.
+- One of the more common ways is use an identification number, known as **the process id or PID** to tell task kill which process you'd like stopped.
+
+---
+
+# Managing Processes
+
+## Windows: Reading Process Information
+
+- On the Windows operating system, the task manager or **taskmgr.exe** is one method of obtaining process information. You can open it with the control shift escape key combination or by locating it using the start menu.
+- The task manager tells you what application or image the process is running along with the user who launched it and the CPU or memory resources it's using.
+- To kill a process, you can select any of the process rows and click the end task button in the lower right corner.
+- How do we get that **PID number?** While in task manager, you can click on the details menu option and here, you can see a whole bunch of other information you can get the task manager to display, including the PID.
+- From the command prompt, you can use utility called TaskList to show all the running processes.
+- From a PowerShell prompt, you can use a Commandlet called Get-Process to do the same.
+
+## Windows: Signals
+
+- To tell a process to quit at the system level, we use something called a **signal**. A signal is a way to tell a process that something's just happened.
+- You can generate a signal with special characters on your keyboard and through other processes and software.
+- One of the most common signals you'll come across is called **SIGINT**, which stands for signal interrupt. You can send this signal to a running process with the **CTRL+C** key combination.
+
+## Windows: Managing Processes
+
+- There's another Process Management tool we haven't talked about which lets you do things like **restart or even pause processes.** This tool is called ***Process Explorer.***
+- Process Explorer is a utility Microsoft created let IT support specialists, systems administrators, and other users look at running processes.
+- Once you've downloaded Process Explorer and started it up, you'll be presented with a view of the currently active processes in the top window pane.
+- This can be super handy if you need to figure out which processes use a certain file, or if you want to get insight into exactly what the process is doing, and how it works.
+
+### Example-
+
+> Let's go ahead and do a search for the notepad process we opened up earlier. You should see C\Windows\System32\notepad.exe listed as one of the search results. once you've located the notepad.exe process, notice how it's nested under the command.exe process in the UI. This indicates that it's a child process of command.exe. If you right-click on the notepad.exe process, you'll be given a list of different options that you can use to manage the process. Check out the ones that say Kill Process, Kill Process Tree, Restart, and Suspend. Kill Process is what you might expect. Say goodbye to notepad. Kill Process Tree does a little bit more. It'll kill the process and all of its descendants. So, any child process started from it will be stopped. Kill Process Tree takes no prisoners. Restart is another interesting option. You might be able to guess what it does just by its name. It will stop and start the process again. Let's do that with the notepad.exe process. We started from command.exe. Interesting. After the restart, notepad.exe doesn't appear as a child of command.exe anymore. What gives? Well, if you'll search for notepad.exe again, we can see it's been restarted as a child of the procexp.exe process. This is the process name for Process Explorer. This makes sense since Process Explorer was a process in charge of starting it again after we terminated it. But what about the Suspend option? Instead of killing a process, you can use this option to suspend it and potentially continue it at a later time. If we right-click, suspend the process, we'll see that in the CPU column, the process explorer output, the word suspended appears.
+
+## Mobile App Management
+
+- When a mobile app is running, there will be one or more processes associated with them, but those details will be managed by the OS.
+- What happens to the bf apps when we are using another app?- as soon as it can, the OS will suspend background mobile apps. A suspended app is paused, but not closed. The OS can occasionally wake a backgrounded app to allow to do some work, but it will try to keep apps suspended as much as it can.
